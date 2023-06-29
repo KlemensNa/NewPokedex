@@ -15,7 +15,7 @@ body{
 }
 
 .pokemonCard{
-    display: flex;
+    display:none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -32,4 +32,12 @@ body{
     align-items: center;
     width: 100%;
     margin-top:40px;
+}
+
+.d-flex{
+    display: flex ;
+}
+
+.d-none{
+    display: none !important;
 }
