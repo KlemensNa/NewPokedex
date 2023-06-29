@@ -11,6 +11,7 @@ body{
 
 #pokemonCards{
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
 
@@ -21,8 +22,9 @@ body{
     align-items: center;
     border: 4px solid black;
     border-radius: 8px;
-    height: 150px;
-    width: 120px;
+    height: 200px;
+    min-width: 150;
+    max-width: 170;
     margin: 8px;
 }
 
@@ -32,6 +34,63 @@ body{
     align-items: center;
     width: 100%;
     margin-top:40px;
+}
+
+#genButtonContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+}
+
+.genButton{
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+    border-radius: 5px;
+    min-width: 8%;
+    max-width: 10%;
+    cursor: pointer;
+}
+
+#loading{
+    width: 100%;
+}
+
+#loadingBarEmpty{
+    width: 100%;
+    border: 2px solid black;
+    height: 25px;
+    background-color: white;
+}
+
+#loadingBar{
+    height:100%;
+    background-color: black;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#runpikachu{
+    width: 50px;
+    height: 50px;
+    z-index: 10;
+    position: absolute;
+    right: -25px;
+    top: -25px;
+}
+
+#runpikachu img{
+    width: 50px;
+    height: 50px;
+}
+
+#loadingText{
+    color: white;
 }
 
 .d-flex{

@@ -16,49 +16,7 @@ async function loadPokemon(){
     // createloadTwoHundredBtn(loadedAmount);
 }
 
-function loadGenButton(i){
-    let GenButtonContainer = document.getElementById('genButtonContainer');
-    if(i === 252){
-        GenButtonContainer.innerHTML += /*html*/`
-            <button onclick="activateChoosenGen(152, 251)">Gen2</button>
-        `
-    }
-    if(i === 386){
-        GenButtonContainer.innerHTML += /*html*/`
-            <button onclick="activateChoosenGen(252, 386)">Gen3</button>
-        `
-    }
-    if(i === 493){
-        GenButtonContainer.innerHTML += /*html*/`
-            <button onclick="activateChoosenGen(387, 493)">Gen4</button>
-        `
-    }
-    if(i === 649){
-        GenButtonContainer.innerHTML += /*html*/`
-            <button onclick="activateChoosenGen(494, 649)">Gen5</button>
-        `
-    }
-    if(i === 721){
-        GenButtonContainer.innerHTML += /*html*/`
-            <button onclick="activateChoosenGen(650, 721)">Gen6</button>
-        `
-    }
-    if(i === 809){
-        GenButtonContainer.innerHTML += /*html*/`
-            <button onclick="activateChoosenGen(722, 809)">Gen7</button>
-        `
-    }
-    if(i === 905){
-        GenButtonContainer.innerHTML += /*html*/`
-            <button onclick="activateChoosenGen(810, 905)">Gen8</button>
-        `
-    }
-    if(i === 1010){
-        GenButtonContainer.innerHTML += /*html*/`
-            <button onclick="activateChoosenGen(906, 1010)">Gen9</button>
-        `
-    }
-}
+
 
 
 function buildCard(JSON){
@@ -99,11 +57,11 @@ function activateChoosenGen(i, j){
         if(i <= id && id <= j){
             parent.classList.remove('d-none');
             parent.classList.add('d-flex');
-        }        
+        }
     } 
 }
 
-
+// hier was nicht richtig, löscht nicht
 function deletePokemonCardsOver(j){
     let jdruber = j + (1010-j);
 
@@ -133,13 +91,18 @@ function deletePokemonCardsUnder(i){
 
 
 function buildLoadingDisplay(i){
-    ;
+    let percent = i/1010 *100;
     document.getElementById('loading').innerHTML =/*html*/`
-        ${i} pokemon of 1010 loaded
+    <div id="loadingBarEmpty" aria-valuemax="100">
+        <div id="loadingBar" style="width: ${percent}%">
+            <div id="loadingText">loadingPokemon</div>
+            <div id="runpikachu"> 
+                <img src="img/runPikachu.png" alt="">
+            </div>       
+        </div>
+    </div>    
     `
-    loadGenButton(i);
 }
-
 
 
 function createloadFiftyMoreBtn(loadedAmount){
