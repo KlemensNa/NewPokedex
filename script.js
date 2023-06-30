@@ -8,15 +8,9 @@ async function loadPokemon(){
         buildCard(responseAsJson);
         activateFirstGen();
         buildLoadingDisplay(i);
-        
+        activateGenBtns(i);
     }
-
-    // createloadFiftyMoreBtn(loadedAmount);
-    // createloadHundredBtn(loadedAmount);
-    // createloadTwoHundredBtn(loadedAmount);
 }
-
-
 
 
 function buildCard(JSON){
@@ -52,32 +46,42 @@ function activateChoosenGen(i, j){
     for (i; i <= j; i++) {
         const id = i;
         let idPokemon = document.getElementById(`${id}`);
-        let parent = idPokemon.parentElement;
-        console.log(parent);
-        if(i <= id && id <= j){
+        if (idPokemon == null){
+            return
+        }else{
+            let parent = idPokemon.parentElement;
+            if(i <= id && id <= j){
             parent.classList.remove('d-none');
             parent.classList.add('d-flex');
         }
+        }
+        
     } 
 }
 
-// hier was nicht richtig, löscht nicht
-function deletePokemonCardsOver(j){
-    let jdruber = j + (1010-j);
 
-    for (jdruber; jdruber < 1010 ; jdruber++) {
-        const idEraseToo = jdruber;
-        let idPokemon = document.getElementById(`${idEraseToo}`);
-        let parento = idPokemon.parentElement;
-        console.log(parent);
-            parento.classList.remove('d-flex');
-            parento.classList.add('d-none');    
+function deletePokemonCardsOver(j){
+    let jOver = j + 1;
+
+    for (jOver; jOver < 1011 ; jOver++) {
+        const id = jOver;
+        let idPokemon = document.getElementById(`${id}`);
+
+        if (idPokemon == null){
+            return
+        }else{
+        console.log(idPokemon);
+        let parent = idPokemon.parentElement;
+        
+            parent.classList.remove('d-flex');
+            parent.classList.add('d-none');
+        } 
     }
 }
 
 function deletePokemonCardsUnder(i){
 
-    let idrunter = i -(i-1);
+    let idrunter = i - (i-1);
 
     for (idrunter; idrunter < i; idrunter++) {
         const idErase = idrunter;
@@ -104,29 +108,6 @@ function buildLoadingDisplay(i){
     `
 }
 
-
-function createloadFiftyMoreBtn(loadedAmount){
-    let loadMoreBtn = document.getElementById('loadFiftyMore');
-    loadMoreBtn.innerHTML = /*html*/`
-        <div class="pokemonCard" onclick="loadPokemon(${loadedAmount}, 50)">load 50 More</div>
-    `
-}
-
-
-function createloadHundredBtn(loadedAmount){
-    let loadMoreBtn = document.getElementById('loadHundredMore');
-    loadMoreBtn.innerHTML = /*html*/`
-        <div class="pokemonCard" onclick="loadPokemon(${loadedAmount}, 100)">load 100 More</div>
-    `
-}
-
-
-function createloadTwoHundredBtn(loadedAmount){
-    let loadMoreBtn = document.getElementById('loadTwoHundredMore');
-    loadMoreBtn.innerHTML = /*html*/`
-        <div class="pokemonCard" onclick="loadPokemon(${loadedAmount}, 200)">load 200 More</div>
-    `
-}
 
 function searchPokemon(){
     let searchedPokemon = document.getElementById('searchText').value.toUpperCase();

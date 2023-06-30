@@ -100,3 +100,7 @@ body{
 .d-none{
     display: none !important;
 }
+
+.d-hidden{
+    visibility: hidden;
+}
