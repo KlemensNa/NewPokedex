@@ -1,7 +1,7 @@
 function loadPokedex(){
     let pokedex = document.getElementById('pokedex');
     pokedex.innerHTML = /*html*/`
-        <h1>Pokedex</h1>
+        <div id="footerLogo"><img src="img/pokemonLogo.png" alt=""></div>
         <div id="loading"></div>
         <div id="genButtonContainer">
             <button onclick="activateChoosenGen(1, 151)" id="btnGenOne" class="genButton">Gen1</button>
@@ -13,17 +13,13 @@ function loadPokedex(){
             <button onclick="activateChoosenGen(722, 809)" id="btnGenSeven" class="genButton d-hidden">Gen7</button>
             <button onclick="activateChoosenGen(810, 905)" id="btnGenEight" class="genButton d-hidden">Gen8</button>
             <button onclick="activateChoosenGen(906, 1010)" id="btnGenNine" class="genButton d-hidden">Gen9</button>
-            <button onclick="activateChoosenGen(1, 1010)" id="btnAll" class="genButton d-hidden">All</button>
+            <div id="allButton" class="genButton"></div>
         </div>
         <div id="searchPokemon">
             <input id="searchText" type="text" onkeyup="searchPokemon()" placeholder="Search Pokemon">
         </div>
         <div id="pokemonCards"></div>
-        <div id="loadMoreBtn">
-            <div id="loadFiftyMore"></div>
-            <div id="loadHundredMore"></div>
-            <div id="loadTwoHundredMore"></div>
-        </div>
+        <div id="showcard" class="d-none"></div>
     `
     loadPokemon();
 }

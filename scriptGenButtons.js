@@ -1,3 +1,11 @@
+function addAllBtn(){
+    let i = pokemonLoaded;
+    document.getElementById('allButton').innerHTML = /*html*/`
+        <button onclick="activateChoosenGen(1, ${i})" id="btnGenAll" class="genButton ">All</button>
+    `;
+    setTimeout(addAllBtn,1000);
+}
+
 function activateGenBtns(i){
     if(i === 251){
         document.getElementById('btnGenTwo').classList.remove('d-hidden');
@@ -5,7 +13,7 @@ function activateGenBtns(i){
     }
     if(i === 386){
         document.getElementById('btnGenThree').classList.remove('d-hidden');
-        document.getElementById('btnGenThree').classList.add('d-flex');
+        document.getElementById('btnGenThree').classList.add('d-flex');   
     }
     if(i === 493){
         document.getElementById('btnGenFour').classList.remove('d-hidden');
@@ -30,9 +38,5 @@ function activateGenBtns(i){
     if(i === 1010){
         document.getElementById('btnGenNine').classList.remove('d-hidden');
         document.getElementById('btnGenNine').classList.add('d-flex');
-    }
-    if(i === 1010){
-        document.getElementById('btnAll').classList.remove('d-hidden');
-        document.getElementById('btnAll').classList.add('d-flex');
     }
 }
