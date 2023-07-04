@@ -1,4 +1,5 @@
 async function buildShowcard(i) {
+    try{
     let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
     let response = await fetch(url);
     let responseAsJson = await response.json();
@@ -10,16 +11,30 @@ async function buildShowcard(i) {
     renderShowcardTypes(responseAsJson);  
     renderShowcardHeight(responseAsJson);
     renderShowcardWeight(responseAsJson);  
+    }catch{
+        alert('Pokemon gibt es nicht!');    
+    }
+    renderFlavorText(i);
 }
 
 
-function renderShowcardTemplate(JSON){
-    let id = JSON['id']
+function searchShowroom(){
+    let search = document.getElementById('showroomSearchField').value;
+    buildShowcard(search); 
+}
+
+
+function renderShowcardTemplate(Json){
+    let id = Json['id']
     let showcard = document.getElementById('showcard');
+    localStorage.setItem('pokemonData', JSON.stringify(Json));
 
     showcard.innerHTML = /*html*/ `
-            <div id="pokecard${id}" class="pokemonShowroom">
-                         
+            <div id="showroomSearch">
+                <input id="showroomSearchField" placeholder="Search Pokemon">
+                <button id="showroomSearchBtn" onclick="searchShowroom()">Search</button>
+            </div>
+            <div id="pokecard${id}" class="pokemonShowroom">                         
                     <div id="pokecardTop">
                         <div id="showcardTopLeft">
                             <div id="showcardTopLeftImg"><img id="showcardImg"></div>
@@ -29,21 +44,163 @@ function renderShowcardTemplate(JSON){
                             <div id="showcardTopRightName"></div>
                             <div id="showcardTopRightTypes"></div>
                             <div id="showcardTopRightHeight">Height:<div id="height"></div></div>
-                            <div id="showcardTopRightWeight">Weight<div id="weight"></div></div>
+                            <div id="showcardTopRightWeight">Weight:<div id="weight"></div></div>
                         </div>                    
                     </div>
                     <div id="pokecardBottom">
-                        <h2 onclick="lastPokemonShowroom(${id})">last</h2> <!--muss verschwinden, wenn id = 1 -->
-                        <h2 onclick="nextPokemonShowroom(${id})">next</h2> <!--muss verschwinden, wenn id = 1010 -->
-                        <h2 onclick="closeShowroom()">X</h2>
-                    </div>
-                              
-                
+                        <div id="navbarPokecardBottom">
+                            <button id="aboutBtn" class="navbarBtn activatedTab" onclick="renderFlavorText(${id})">About</button>
+                            <button id="statsBtn" class="navbarBtn activatedTab" onclick ="renderStatContainer()">Stats</button>
+                        </div>
+                        <div id="contentPokecardBottom">
+
+                        </div>         
+                    </div>                             
             </div>
+            <div id="blueDot"><div id="innerDot"></div></div>
+            <button id="lastPokemonBtn" onclick="lastPokemonShowroom(${id})"><img src="img/last.svg" alt=""></button> <!--muss verschwinden, wenn id = 1 -->
+            <button id="nextPokemonBtn" onclick="nextPokemonShowroom(${id})"><img src="img/next.svg" alt=""></button> <!--muss verschwinden, wenn id = 1010 -->
+            <button id="closeShowroomBtn" onclick="closeShowroom()"><img src="img/shutdown.svg" alt=""></button>                     
         `
     showcard.classList.remove('d-none');
     showcard.classList.add('d-flex');
 }
+
+
+function activateTab(i){
+    let clearTabs = document.getElementsByClassName('navbarBtn');
+    for (let i = 0; i < clearTabs.length; i++) {
+        const element = clearTabs[i];
+        element.classList.remove('activatedTab');
+        element.classList.add('clearTab')
+    }
+
+    let activateTab = document.getElementById(`${i}`);
+    activateTab.classList.add('activatedTab');
+    activateTab.classList.remove('clearTab');    
+}
+
+
+async function renderFlavorText(id){
+    let url = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
+    let response = await fetch(url);
+    let responseAsJson = await response.json();
+
+    let text = responseAsJson['flavor_text_entries'][0]['flavor_text'].replace('\f', ' ');
+    document.getElementById('contentPokecardBottom').innerHTML = /*html*/`
+        <div id="flavorText">${text}</div>
+    `
+    activateTab('aboutBtn');
+}
+
+
+function renderStatContainer(){
+    document.getElementById('contentPokecardBottom').innerHTML = /*html*/`
+            <div id="stats"></div>
+            <div id="chartContainer"><canvas id="myChart"></canvas></div> 
+        `
+    renderStats();
+    activateTab('statsBtn');
+}
+
+
+function renderStats(){
+    let Json = JSON.parse(localStorage.getItem('pokemonData'));    
+    let stats = Json['stats'];   
+
+    renderStatsList(stats);
+}   
+
+function renderStatsList(stats){
+    let statName = [];
+    let statValue = [];
+    for (let s = 0; s < stats.length; s++) {
+        const element = stats[s];
+
+        statValue.push(element['base_stat']);
+        statName.push(element['stat']['name']);    
+        
+        document.getElementById('stats').innerHTML += /*html*/`
+        <div class="statList">
+            <div id=statName${s}>${element['stat']['name']}</div>
+            <div id=statValue${s}>${element['base_stat']}</div>
+        </div>
+        `;
+    }
+    renderStatsChart(statValue, statName);
+}
+
+
+function renderStatsChart(statValue, statName){
+    const ctx = document.getElementById('myChart'); 
+
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: statName,
+        datasets: [{          
+          data: statValue,
+          borderWidth: 1,
+          backgroundColor: 'rgba(0,0,0,0.2)',
+        }]
+      },
+      options: {
+        scales: {
+          r: {
+            beginAtZero: true,
+            max: 160,
+            ticks:{
+                display: false
+            }
+          },
+        },
+        plugins: {
+            legend: {
+              display: false
+            },
+        },
+        elements:{
+            point:{
+                pointStyle: false
+            }
+          }
+      }
+    });
+}
+
+
+function renderBottomButtonsPageTwo(pokeID){
+    let pokedexBottomButtons = document.getElementById('pokedexBottomButtons');
+
+    pokedexBottomButtons.innerHTML = /*html*/`
+        <button id="perviousSide" class="btn" onclick="renderPageOne(${pokeID})">PreviousPage</button>
+        `
+}
+
+
+
+function searchForPokemon(){
+    let searchPokemon = document.getElementById('searchPokemon').value; 
+    console.log(searchPokemon);
+    let pokenames = document.getElementById('homescreenList');
+    let divs = pokenames.getElementsByTagName('div');
+
+    for (let i = 0; i < divs.length; i++) {
+        const result = divs[i].textContent;
+        const resultID = divs[i-1].textContent;
+        if (searchPokemon == result){
+            console.log('match', result);
+            console.log('match', resultID);
+            newResult = document.getElementById(`${result}`);
+            newResult.scrollIntoView();
+            colorSelection(newResult);
+            return   
+        }   
+        
+    }
+}
+
+
 
 
 function renderShowcardName(JSON){
@@ -63,10 +220,12 @@ function renderShowcardId(JSON) {
     }
 }
 
+
 function renderShowcardImg(JSON){
     let picture = document.getElementById('showcardImg');
     picture.src = JSON['sprites']['other']['official-artwork']['front_default'];
 }
+
 
 function renderShowcardTypes(JSON){
     let typeOne = JSON['types'][0]['type']['name'];

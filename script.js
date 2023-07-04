@@ -2,7 +2,7 @@
 
 async function loadPokemon() {
 
-    for (let i = 1; i <= 150; i++) {
+    for (let i = 1; i <= 35; i++) {
         pokemonLoaded = i;
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
