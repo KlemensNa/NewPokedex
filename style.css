@@ -1,6 +1,7 @@
 body{
     margin:0;
     font-family: 'Lato', sans-serif;
+    background-color:white;
 }
 
 #pokedex{
@@ -8,6 +9,37 @@ body{
     align-items: center;
     flex-direction: column;
     margin: 8px 40px;
+}
+
+header{
+    display: flex;
+    width: 100%;
+    height: 200px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#footerLogo{
+    width: 60%;
+    height: 100%;
+    display: flex;
+}
+
+#footerLogo img{
+    width: 60%;
+    object-fit: cover;
+}
+
+#searchText{
+    width: 250px;
+    height: 45px;
+    font-size: 36px;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+#searchText::placeholder{
+    font-size: 24px;    
 }
 
 #pokemonCards{
@@ -21,10 +53,10 @@ body{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    border: 4px solid black;
+    border: 2px solid black;
     border-radius: 8px;
-    height: 300px;
-    width: 200px;
+    height: 400px;
+    width: 300px;
     margin: 8px;
     cursor: pointer;
     background-image: url(img/pokeball3.png);
@@ -33,36 +65,29 @@ body{
     background-blend-mode:soft-light;
     background-position-y: 80%;
     background-position-x: center;
+    box-shadow: -1px 1px 2px black;
 }
 
 .pokeCardImg{
-    width: 100%;
-    height:50%;
+    height: 290px
 }
 
 .pokeCardImg img{
-    width: 90%;
-    margin-bottom: 24px;
+    height: 290px;
 }
-
-/* #idAndName{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-    font-size: 24px;    
-} */
 
 .pokemonId{
     mix-blend-mode: soft-light;
     font-size: 66px;
+    height: 70px;
     color: white;
 }
 
 .pokemonName{
     color: white;
-    font-size: 36px;
+    font-size: 32px;
+    padding-bottom: 8px;
+    height: 40px;
 }
 
 #genButtonContainer{
@@ -95,6 +120,7 @@ body{
     border: 2px solid black;
     height: 25px;
     background-color: white;
+    border-radius: 10px;
 }
 
 #loadingBar{
@@ -104,7 +130,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    border-radius: 10px;
 }
 
 #runpikachu{
@@ -134,7 +160,7 @@ body{
     left: 0;
     justify-content: center;
     align-items: center;
-    background-color: #DA082E;
+    background-color: #da082f;
 }
 
 .pokemonShowroom{
@@ -205,6 +231,7 @@ body{
     justify-content: center;
     align-items: center;
     font-size: 24px;
+    font-weight: 700;
     height: 80px;
     padding-bottom: 12px;
 }
@@ -224,7 +251,21 @@ body{
 
 #showcardTopRightTypes{
     display: flex;
+    flex-direction: column;
     gap: 24px;
+    width: 100%;
+}
+
+.type{
+    width: 99%;
+    display: flex;
+    gap: 24px;
+}
+
+#typeTwo{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
 
 #showcardTopRightHeight{
@@ -361,7 +402,7 @@ body{
     border-radius: 40px;
     background-color: rgba(0, 0, 0, 0.76);
     position: fixed;
-    left:15%;
+    left:10%;
     top:47%;
     cursor: pointer;
     color: white;
@@ -376,7 +417,7 @@ body{
     border-radius: 40px;
     background-color: rgba(0, 0, 0, 0.76);
     position: fixed;
-    right:15%;
+    right:10%;
     top:47%;
     cursor: pointer;
     color: white;
@@ -413,4 +454,77 @@ body{
 
 .d-hidden{
     visibility: hidden;
+}
+
+
+@media(max-width: 992px){
+    
+}
+
+
+@media(max-width: 776px){
+    header{
+        height: 100px;
+    }        
+    
+    #footerLogo{
+        height: 100%;
+    }
+    
+    #footerLogo img{
+        width: 35%;
+        object-fit: contain;
+    }
+
+    #searchPokemon{
+        height: 24px;
+    }
+    
+    #searchText{
+        height: 24px;
+        padding: 0;
+        padding-left: 8px;
+        font-size: 20px;
+    }
+    
+    #searchText::placeholder{
+        font-size: 16px;    
+    }
+
+    #genButtonContainer{
+        flex-wrap: wrap;
+    }
+
+    .genButton{
+        width: 60px;
+        height: 25px;
+        min-width: none;
+        max-width: none;
+        margin: 2px;
+    }
+}
+
+@media(max-width: 576px){
+    header{
+        flex-direction: column;
+        width: 100%;
+        height: 130px;
+        margin-bottom: 36px;
+    }
+
+    #footerLogo{
+        width: 100%;
+        justify-content: center;
+    }
+
+    #footerLogo img{
+        width: 60%;
+        object-fit: cover;
+    }    
+}
+
+@media(max-width: 450px){
+    #footerLogo img{
+        width: 100%
+    }
 }

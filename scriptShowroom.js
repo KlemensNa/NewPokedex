@@ -19,7 +19,7 @@ async function buildShowcard(i) {
 
 
 function searchShowroom(){
-    let search = document.getElementById('showroomSearchField').value;
+    let search = document.getElementById('showroomSearchField').value.toLowerCase();
     buildShowcard(search); 
 }
 
@@ -43,8 +43,8 @@ function renderShowcardTemplate(Json){
                         <div id="showcardTopRight">
                             <div id="showcardTopRightName"></div>
                             <div id="showcardTopRightTypes"></div>
-                            <div id="showcardTopRightHeight">Height:<div id="height"></div></div>
-                            <div id="showcardTopRightWeight">Weight:<div id="weight"></div></div>
+                            <div id="showcardTopRightHeight"><b>Height:</b><div id="height"></div></div>
+                            <div id="showcardTopRightWeight"><b>Weight:</b><div id="weight"></div></div>
                         </div>                    
                     </div>
                     <div id="pokecardBottom">
@@ -86,7 +86,7 @@ async function renderFlavorText(id){
     let response = await fetch(url);
     let responseAsJson = await response.json();
 
-    let text = responseAsJson['flavor_text_entries'][0]['flavor_text'].replace('\f', ' ');
+    let text = responseAsJson['flavor_text_entries'][1]['flavor_text'].replace('\f', ' ');
     document.getElementById('contentPokecardBottom').innerHTML = /*html*/`
         <div id="flavorText">${text}</div>
     `
@@ -109,7 +109,8 @@ function renderStats(){
     let stats = Json['stats'];   
 
     renderStatsList(stats);
-}   
+}
+
 
 function renderStatsList(stats){
     let statName = [];
@@ -169,16 +170,6 @@ function renderStatsChart(statValue, statName){
 }
 
 
-function renderBottomButtonsPageTwo(pokeID){
-    let pokedexBottomButtons = document.getElementById('pokedexBottomButtons');
-
-    pokedexBottomButtons.innerHTML = /*html*/`
-        <button id="perviousSide" class="btn" onclick="renderPageOne(${pokeID})">PreviousPage</button>
-        `
-}
-
-
-
 function searchForPokemon(){
     let searchPokemon = document.getElementById('searchPokemon').value; 
     console.log(searchPokemon);
@@ -195,17 +186,16 @@ function searchForPokemon(){
             newResult.scrollIntoView();
             colorSelection(newResult);
             return   
-        }   
-        
+        }     
     }
 }
 
 
-
-
 function renderShowcardName(JSON){
-    let name = document.getElementById('showcardTopRightName');
-    name.innerHTML = JSON['name'];
+    let nameContainer = document.getElementById('showcardTopRightName');
+    let name = JSON['name'];
+    name = name.charAt(0).toUpperCase() + name.slice(1);
+    nameContainer.innerHTML = name;
 }
 
 
@@ -242,11 +232,11 @@ function renderShowcardTypes(JSON){
 
 function addTypes(typeOne, typeTwo) {
     document.getElementById('showcardTopRightTypes').innerHTML = /*html*/`
-        ${typeOne}
+        <div class="type"><b>Type:</b> ${typeOne}</div>
     `
     if (typeTwo != undefined) {
         document.getElementById('showcardTopRightTypes').innerHTML += /*html*/`
-        ${typeTwo}
+        <div class="type" id="typeTwo"><b>Type 2:</b> ${typeTwo}</div>
     `
     } else {
         return
@@ -262,7 +252,6 @@ function addColor(type){
 
 function renderShowcardHeight(JSON){
     let height = document.getElementById('height');
-
     let amountHeight = JSON['height'] /10;
     amountHeight = amountHeight + " m";
     height.innerHTML = amountHeight;
@@ -271,7 +260,6 @@ function renderShowcardHeight(JSON){
 
 function renderShowcardWeight(JSON){
     let weight = document.getElementById('weight');
-
     let amountWeight = JSON['weight']/10;
     amountWeight = amountWeight + " kg";
     weight.innerHTML = amountWeight;
@@ -293,60 +281,4 @@ function nextPokemonShowroom(id) {
 function closeShowroom() {
     document.getElementById('showcard').classList.remove('d-flex');
     document.getElementById('showcard').classList.add('d-none');
-}
-
-
-
-
-/**Altes  */ 
-
-
-function renderInfoHeader(responseAsJson) {
-    renderName(responseAsJson);
-    renderIndex(responseAsJson);
-    renderImg(responseAsJson);
-    renderTyp(responseAsJson);
-    renderHeight(responseAsJson);
-    renderWeight(responseAsJson);
-}
-
-
-function renderImg(i) {
-    
-}
-
-
-function renderTyp(i) {
-    let typ = document.getElementById('typ');
-    typ.innerHTML = i['types'][0]['type']['name'];
-}
-
-
-function renderHeight(i) {
-    let height = document.getElementById('height');
-    let convertHeight = (i['height'] / 10);
-    height.innerHTML = /*html*/`
-    <div>Height</div>
-    <div>${convertHeight} m</div>
-    ` ;
-}
-
-
-function renderWeight(i) {
-    let weight = document.getElementById('weight');
-    let convertWeight = (i['weight'] / 10);
-    weight.innerHTML = /*html*/`
-    <div>Weight</div>
-    <div>${convertWeight} kg</div>
-    ` ;
-}
-
-
-function renderEntryText(i) {
-    let pokedexEntryText = document.getElementById('pokedexEntryText');
-    // Text Pokedex
-    let pokedexText = i['flavor_text_entries'][2]['flavor_text'].replace('\f', ' ');
-    pokedexText = pokedexText.replace('é','e');
-
-    pokedexEntryText.innerHTML = pokedexText;
 }

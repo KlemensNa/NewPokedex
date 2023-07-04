@@ -1,8 +1,5 @@
-
-
 async function loadPokemon() {
-
-    for (let i = 1; i <= 35; i++) {
+    for (let i = 1; i <= 1010; i++) {
         pokemonLoaded = i;
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
@@ -17,6 +14,7 @@ async function loadPokemon() {
 
 async function buildCard(JSON) {
     let name = JSON['name'];
+    name = name.charAt(0).toUpperCase() + name.slice(1);
     let identnr = JSON['id'];
     let picture = JSON['sprites']['other']['official-artwork']['front_default'];
     let type = JSON['types'][0]['type']['name'];
@@ -138,6 +136,7 @@ function searchPokemon() {
         }
     }
 }
+
 
 
 
