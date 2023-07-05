@@ -52,16 +52,21 @@ function renderShowcardTemplate(Json){
                             <button id="aboutBtn" class="navbarBtn activatedTab" onclick="renderFlavorText(${id})">About</button>
                             <button id="statsBtn" class="navbarBtn activatedTab" onclick ="renderStatContainer()">Stats</button>
                         </div>
-                        <div id="contentPokecardBottom">
-
+                        <div id="contentPokecardBottom">                            
                         </div>         
-                    </div>                             
+                    </div>
+                    <div id="showcardButtonsBottom" class="d-none">
+                        <button id="lastPokemonBtnIn" onclick="lastPokemonShowroom(${id})"><img src="img/last.svg" alt=""></button>  
+                        <button id="closeShowroomBtnIn" onclick="closeShowroom()"><img src="img/shutdown.svg" alt=""></button>
+                        <button id="nextPokemonBtnIn" onclick="nextPokemonShowroom(${id})"><img src="img/next.svg" alt=""></button>                  
+                    </div>                           
             </div>
             <div id="blueDot"><div id="innerDot"></div></div>
-            <button id="lastPokemonBtn" onclick="lastPokemonShowroom(${id})"><img src="img/last.svg" alt=""></button> <!--muss verschwinden, wenn id = 1 -->
-            <button id="nextPokemonBtn" onclick="nextPokemonShowroom(${id})"><img src="img/next.svg" alt=""></button> <!--muss verschwinden, wenn id = 1010 -->
-            <button id="closeShowroomBtn" onclick="closeShowroom()"><img src="img/shutdown.svg" alt=""></button>                     
+            <button id="lastPokemonBtn" class="freeButtons" onclick="lastPokemonShowroom(${id})"><img src="img/last.svg" alt=""></button> 
+            <button id="nextPokemonBtn" class="freeButtons" onclick="nextPokemonShowroom(${id})"><img src="img/next.svg" alt=""></button> 
+            <button id="closeShowroomBtn" class="freeButtons" onclick="closeShowroom()"><img src="img/shutdown.svg" alt=""></button>                     
         `
+    changeShowroomButtons()
     showcard.classList.remove('d-none');
     showcard.classList.add('d-flex');
 }
