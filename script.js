@@ -1,5 +1,5 @@
 async function loadPokemon() {
-    for (let i = 1; i <= 20; i++) {
+    for (let i = 1; i <= 1010; i++) {
         pokemonLoaded = i;
         let url = `https://pokeapi.co/api/v2/pokemon/${i}`;
         let response = await fetch(url);
@@ -23,10 +23,7 @@ async function buildCard(JSON) {
     let pokemonCards = document.getElementById('pokemonCards');
     pokemonCards.innerHTML +=/*html*/`
     <div id=${name} class="pokemonCard" onclick="buildShowcard(${identnr})" style="background-color: ${bgColor}">
-        <!-- <div id="idAndName"> -->
-           
         <div id="${identnr}" class="pokemonId">#${identnr}</div>            
-        <!-- </div> -->
         <div id="picture${name}" class="pokeCardImg"><img src="${picture}"></div>
         <div id="name${name}" class="pokemonName">${name}</div> 
     </div>
@@ -49,7 +46,6 @@ function pokecardBackgroundColor(type){
 
 
 function activateChoosenGen(i, j) {
-
     deletePokemonCardsOver(j);
     deletePokemonCardsUnder(i);
     for (i; i <= j; i++) {
@@ -71,19 +67,15 @@ function activateChoosenGen(i, j) {
 
 function deletePokemonCardsOver(j) {
     let jOver = j + 1;
-
-    for (jOver; jOver < 1011; jOver++) {
+        for (jOver; jOver < 1011; jOver++) {
         const id = jOver;
         let idPokemon = document.getElementById(`${id}`);
-
         if (idPokemon == null) {
             return
         } else {
             console.log(idPokemon);
             let parent = idPokemon.parentElement;
-
-            parent.classList.remove('d-flex');
-            parent.classList.add('d-none');
+            deleteCards(parent);
         }
     }
 }
@@ -96,10 +88,13 @@ function deletePokemonCardsUnder(i) {
         const idErase = idrunter;
         let idPokemon = document.getElementById(`${idErase}`);
         let parent = idPokemon.parentElement;
-
-        parent.classList.remove('d-flex');
-        parent.classList.add('d-none');
+        deleteCards(parent);
     }
+}
+
+function deleteCards(parent){
+    parent.classList.remove('d-flex');
+    parent.classList.add('d-none');
 }
 
 
@@ -115,6 +110,11 @@ function buildLoadingDisplay(i) {
         </div>
     </div>    
     `
+    hideLoadingScreen(percent)
+}
+
+
+function hideLoadingScreen(percent){
     if (percent === 100) {
         document.getElementById('loading').classList.add('d-none');
     }

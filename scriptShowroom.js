@@ -24,54 +24,6 @@ function searchShowroom(){
 }
 
 
-function renderShowcardTemplate(Json){
-    let id = Json['id']
-    let showcard = document.getElementById('showcard');
-    localStorage.setItem('pokemonData', JSON.stringify(Json));
-
-    showcard.innerHTML = /*html*/ `
-            <div id="showroomSearch">
-                <input id="showroomSearchField" placeholder="Search Pokemon">
-                <button id="showroomSearchBtn" onclick="searchShowroom()">Search</button>
-            </div>
-            <div id="pokecard${id}" class="pokemonShowroom">                         
-                    <div id="pokecardTop">
-                        <div id="showcardTopLeft">
-                            <div id="showcardTopLeftImg"><img id="showcardImg"></div>
-                            <div id="showcardTopLeftId"></div>                            
-                        </div>
-                        <div id="showcardTopRight">
-                            <div id="showcardTopRightName"></div>
-                            <div id="showcardTopRightTypes"></div>
-                            <div id="showcardTopRightHeight"><b>Height:</b><div id="height"></div></div>
-                            <div id="showcardTopRightWeight"><b>Weight:</b><div id="weight"></div></div>
-                        </div>                    
-                    </div>
-                    <div id="pokecardBottom">
-                        <div id="navbarPokecardBottom">
-                            <button id="aboutBtn" class="navbarBtn activatedTab" onclick="renderFlavorText(${id})">About</button>
-                            <button id="statsBtn" class="navbarBtn activatedTab" onclick ="renderStatContainer()">Stats</button>
-                        </div>
-                        <div id="contentPokecardBottom">                            
-                        </div>         
-                    </div>
-                    <div id="showcardButtonsBottom" class="d-none">
-                        <button id="lastPokemonBtnIn" onclick="lastPokemonShowroom(${id})"><img src="img/last.svg" alt=""></button>  
-                        <button id="closeShowroomBtnIn" onclick="closeShowroom()"><img src="img/shutdown.svg" alt=""></button>
-                        <button id="nextPokemonBtnIn" onclick="nextPokemonShowroom(${id})"><img src="img/next.svg" alt=""></button>                  
-                    </div>                           
-            </div>
-            <div id="blueDot"><div id="innerDot"></div></div>
-            <button id="lastPokemonBtn" class="freeButtons" onclick="lastPokemonShowroom(${id})"><img src="img/last.svg" alt=""></button> 
-            <button id="nextPokemonBtn" class="freeButtons" onclick="nextPokemonShowroom(${id})"><img src="img/next.svg" alt=""></button> 
-            <button id="closeShowroomBtn" class="freeButtons" onclick="closeShowroom()"><img src="img/shutdown.svg" alt=""></button>                     
-        `
-    changeShowroomButtons()
-    showcard.classList.remove('d-none');
-    showcard.classList.add('d-flex');
-}
-
-
 function activateTab(i){
     let clearTabs = document.getElementsByClassName('navbarBtn');
     for (let i = 0; i < clearTabs.length; i++) {
@@ -122,7 +74,6 @@ function renderStatsList(stats){
     let statValue = [];
     for (let s = 0; s < stats.length; s++) {
         const element = stats[s];
-
         statValue.push(element['base_stat']);
         statName.push(element['stat']['name']);    
         
@@ -177,7 +128,6 @@ function renderStatsChart(statValue, statName){
 
 function searchForPokemon(){
     let searchPokemon = document.getElementById('searchPokemon').value; 
-    console.log(searchPokemon);
     let pokenames = document.getElementById('homescreenList');
     let divs = pokenames.getElementsByTagName('div');
 
@@ -185,8 +135,6 @@ function searchForPokemon(){
         const result = divs[i].textContent;
         const resultID = divs[i-1].textContent;
         if (searchPokemon == result){
-            console.log('match', result);
-            console.log('match', resultID);
             newResult = document.getElementById(`${result}`);
             newResult.scrollIntoView();
             colorSelection(newResult);
