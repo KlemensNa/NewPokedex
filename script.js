@@ -19,15 +19,8 @@ async function buildCard(JSON) {
     let picture = JSON['sprites']['other']['official-artwork']['front_default'];
     let type = JSON['types'][0]['type']['name'];
     let bgColor = pokecardBackgroundColor(type, name);
-
-    let pokemonCards = document.getElementById('pokemonCards');
-    pokemonCards.innerHTML +=/*html*/`
-    <div id=${name} class="pokemonCard" onclick="buildShowcard(${identnr})" style="background-color: ${bgColor}">
-        <div id="${identnr}" class="pokemonId">#${identnr}</div>            
-        <div id="picture${name}" class="pokeCardImg"><img src="${picture}"></div>
-        <div id="name${name}" class="pokemonName">${name}</div> 
-    </div>
-    `
+    
+    templatesCard(name, identnr, picture, bgColor);    
     activateFirstGen(identnr, name);    
 }
 
@@ -48,6 +41,11 @@ function pokecardBackgroundColor(type){
 function activateChoosenGen(i, j) {
     deletePokemonCardsOver(j);
     deletePokemonCardsUnder(i);
+    showChoosenPokemonCards(i, j);
+}
+
+
+function showChoosenPokemonCards(i, j){
     for (i; i <= j; i++) {
         const id = i;
         let idPokemon = document.getElementById(`${id}`);
@@ -73,7 +71,6 @@ function deletePokemonCardsOver(j) {
         if (idPokemon == null) {
             return
         } else {
-            console.log(idPokemon);
             let parent = idPokemon.parentElement;
             deleteCards(parent);
         }

@@ -7,6 +7,7 @@ body{
 #pokedex{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     flex-direction: column;
     margin: 8px 40px;
 }
@@ -498,6 +499,10 @@ header{
     visibility: hidden;
 }
 
+
+
+/* Media Queries */
+
 @media(max-width: 1400px){
     #stats{
         
@@ -505,14 +510,11 @@ header{
     }
 }
 
-
 @media(max-width: 992px){
     #showcardTopRight{
         font-size: 18px;
-    }
-    
+    }    
 }
-
 
 @media(max-width: 776px){
     header{
@@ -579,7 +581,7 @@ header{
     }
 
     #showroomSearch {
-        width: 350px;
+        width: calc(100% - 24px);
         position: relative;
         top: auto;
         height: 10%;
@@ -591,7 +593,7 @@ header{
 
     .pokemonShowroom {
         position: relative;
-        width: 350px;
+        width: calc(100% - 24px);
         bottom: auto;
         height: 90%;
         background-color: white;

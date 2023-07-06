@@ -14,7 +14,7 @@ function loadPokedex(){
         </header>
         <div id="loading"></div>
         <div id="genButtonContainer">
-            <button onclick="activateChoosenGen(1, 151)" id="btnGenOne" class="genButton">Gen1</button>
+            <button onclick="activateChoosenGen(1, 151)" id="btnGenOne" class="genButton" style="background-color: ${typeColors[0]}">Gen1</button>
             <button onclick="activateChoosenGen(152, 251)" id="btnGenTwo" class="genButton d-hidden">Gen2</button>
             <button onclick="activateChoosenGen(252, 386)" id="btnGenThree" class="genButton d-hidden">Gen3</button>
             <button onclick="activateChoosenGen(387, 493)" id="btnGenFour" class="genButton d-hidden">Gen4</button>
@@ -30,6 +30,19 @@ function loadPokedex(){
     `
     loadPokemon();
 }
+
+
+function templatesCard(name, identnr, picture, bgColor){
+    let pokemonCards = document.getElementById('pokemonCards');
+    pokemonCards.innerHTML +=/*html*/`
+    <div id=${name} class="pokemonCard" onclick="buildShowcard(${identnr})" style="background-color: ${bgColor}">
+        <div id="${identnr}" class="pokemonId">#${identnr}</div>            
+        <div id="picture${name}" class="pokeCardImg"><img src="${picture}"></div>
+        <div id="name${name}" class="pokemonName">${name}</div> 
+    </div>
+    `
+}
+
 
 function renderShowcardTemplate(Json){
     let id = Json['id']
